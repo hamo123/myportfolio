@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using testprojapiDAL.Context;
+using testprojapiDAL.Entities;
 
 namespace testprojapi.Controllers
 {
@@ -60,10 +61,46 @@ namespace testprojapi.Controllers
                 };
             }
 
+            //Log the order...come back to this needs more boilerplate
+            Order order = new Order()
+            {
+                Address = request.Address,
+                Name = request.Name,
+                PostCode = request.Postcode,
+                TelephoneNumber = request.TelephoneNumber,
+                OrderItems = new List<OrderItem>()
+            };
+
+            decimal total = 0.0m;
+            List<OrderItem> items = new List<OrderItem>();
+
+            //Total up on server side, client side can be manipulated
+            foreach (ProcessPaymentsItemsRequest item in request.items)
+            {
+                Product product = _testDBcontext.Products.FirstOrDefault(x => x.ID == item.ProductID);
+                OrderItem orderItem = new OrderItem();
+
+                if (product != null)
+                {
+                    total += (product.Cost * item.Quantity);
+                }
+
+                orderItem.ProductID = item.ProductID;
+                orderItem.Quantity = item.Quantity;
+
+                order.OrderItems.Add(orderItem);
+            }
+
+            order.OrderTotal = total;
+
+            //TODO: Should log the transaction result....come back to this
+            _testDBcontext.Orders.Add(order);
+            _testDBcontext.SaveChanges();
+
             var transRequest = new TransactionRequest
             {
                 //set this
-                Amount = request.Amount,
+                Amount = total,
                 //set this
                 PaymentMethodNonce = request.nonce,
                 Options = new TransactionOptionsRequest
@@ -74,8 +111,6 @@ namespace testprojapi.Controllers
 
             Result<Transaction> result = _gateway.Transaction.Sale(transRequest);
 
-            //Log the order...come back to this needs more boilerplate
-            
 
             return returnString;
         }

@@ -9,7 +9,44 @@ export class BraintreeControl extends Component {
         super(props);
 
         this.state = {
+            name: '',
+            email: '',
+            address: '',
+            postcode: '',
+            telephoneNumber: ''
         };
+
+        this.updateName = this.updateName.bind(this);
+        this.updateEmail = this.updateEmail.bind(this);
+        this.updateAddress = this.updateAddress.bind(this);
+        this.updatePostcode = this.updatePostcode.bind(this);
+        this.updateTelephoneNumber = this.updateTelephoneNumber.bind(this);
+    }
+
+    updateName = (e) => {
+        this.setState({ name: e.target.value });
+        window.localStorage.setItem("name", JSON.stringify(e.target.value));
+    }
+
+    updateEmail= (e) => {
+        this.setState({ email: e.target.value });
+        window.localStorage.setItem("email", JSON.stringify(e.target.value));
+    }
+
+    updateAddress = (e) => {
+        this.setState({ address: e.target.value });
+        window.localStorage.setItem("address", JSON.stringify(e.target.value));
+    }
+
+    updatePostcode = (e) => {
+        this.setState({ postcode: e.target.value });
+        window.localStorage.setItem("postcode", JSON.stringify(e.target.value));
+    }
+
+    updateTelephoneNumber = (e) => {
+        this.setState({ telephoneNumber: e.target.value });
+
+        window.localStorage.setItem("telephoneNumber", JSON.stringify(e.target.value));
     }
 
     scriptLoaded = () => {
@@ -25,24 +62,32 @@ export class BraintreeControl extends Component {
 
                         //Total up everything inside the basket...
                         let array = JSON.parse(window.localStorage.getItem("Basket"));
-                        let total = 0;
+                        request.items = [];
+
+                        request.Name = JSON.parse(window.localStorage.getItem("name"));
+                        request.Email = JSON.parse(window.localStorage.getItem("email"));
+                        request.Address = JSON.parse(window.localStorage.getItem("address"));
+                        request.Postcode = JSON.parse(window.localStorage.getItem("postcode"));
+                        request.TelephoneNumber = JSON.parse(window.localStorage.getItem("telephoneNumber"));
 
                         for (var i = 0; i < array.length; i++) {
-                            total += array[i].Cost * 10; //Quantity is 10 per item for this demo;
-                        }
+                            var orderItem = {};
 
-                        request.Amount = total;
+                            //Everything is 10...will allow this to be selectable if time 
+                            orderItem.Quantity = 10;
+                            orderItem.ProductID = array[i].productItem.ID;
+
+                            request.items.push(orderItem);
+                        }
 
                         axios.post(configData.SERVER_URL + "api/Order/ProcessOrder", request)
                             .then(res => {
                                 alert("Success!");
                             })
                             .catch(error => {
-                                //this.setState({ password: "", failed: true });
-                                alert("Login failed");
+                                alert("Order failed");
                                 console.log(error);
                             });
-                        //webservicehandler.webServicePost('/api/Braintree/ProcessOrder', request, null, function (e) { alert("Success!"); }, null, '');
                     },
                     onError: function (type, message) {
                         //alert(type + " " + message);
@@ -70,6 +115,49 @@ export class BraintreeControl extends Component {
     render() {
         return (
             <div>
+                <div> <h2>Order details & Payment!</h2> </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Name
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" value={this.state.name} onChange={this.updateName} />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Email
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" value={this.state.email} onChange={this.updateEmail} />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Address 
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" value={this.state.address} onChange={this.updateAddress} />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Postcode
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" value={this.state.postcode} onChange={this.updatePostcode} />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Telephone
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" value={this.state.telephoneNumber} onChange={this.updateTelephoneNumber} />
+                        </div>
+                    </div>
+                </div>
                 <div>
                     This is linked to the braintree platform. Use 4111 1111 1111 1111 and an expiry date in the future to test a valid transaction
                 </div>

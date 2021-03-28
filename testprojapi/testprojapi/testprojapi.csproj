@@ -25,8 +25,4 @@
     <ProjectReference Include="..\testprojapiDAL\testprojapiDAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\RequestResponse\" />
-  </ItemGroup>
-
 </Project>
