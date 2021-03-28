@@ -33,7 +33,7 @@ export class BasketControl extends Component {
                         {productItemTest.productItem.Cost}
                     </div>
                     <div class="col-sm-3">
-
+                        {productItemTest.productItem.Cost}
                     </div>
                 </div>
 
@@ -41,40 +41,45 @@ export class BasketControl extends Component {
         );
     }
 
-    //static getDerivedStateFromProps(props, state) {
-    //    return { basket: props.basketItems };
-    //}
-
     render() {
         let contentsBasket = this.state.loading
             ? <p><em>Loading...</em></p>
             : this.renderBasket(this.props.basketItems);
 
-        return (
-            <div>
-                <div>
-                    <div>
-                        <h2>My Basket !</h2>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                Title
-                        </div>
-                            <div class="col-sm-3">
-                                Description
-                        </div>
-                            <div class="col-sm-3">
-                                Quantity
-                        </div>
-                            <div class="col-sm-3">
+        var display = 'No items in your basket';
 
+        if (this.props.basketItems.length != 0) {
+            display = <div>
+                        <div>
+                            <div>
+                                <h2>My Basket !</h2>
                             </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                      <strong>Title</strong>
+                                    </div>
+                                    <div class="col-sm-3">
+                                      <strong>Description</strong>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <strong>Cost</strong>
+                                    </div>
+                                    <div class="col-sm-3">
+                                      <strong>Quantity</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                {contentsBasket}
+                            </div>
+                            
                         </div>
                     </div>
-                    {contentsBasket}
-                </div>
-            </div>
+        }
+
+        return (
+            display
         );
     }
 }

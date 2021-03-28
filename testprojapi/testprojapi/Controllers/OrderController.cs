@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using testprojapiDAL;
 using testprojapiDAL.Context;
 using testprojapiDAL.Entities;
 
@@ -92,10 +93,8 @@ namespace testprojapi.Controllers
             }
 
             order.OrderTotal = total;
-
-            //TODO: Should log the transaction result....come back to this
-            _testDBcontext.Orders.Add(order);
-            _testDBcontext.SaveChanges();
+            order.OrderRef = Guid.NewGuid().ToString().Replace("-", "").Substring(0,15); //Just generate a random guid for the order ref
+            order.Email = request.Email;
 
             var transRequest = new TransactionRequest
             {
@@ -111,6 +110,10 @@ namespace testprojapi.Controllers
 
             Result<Transaction> result = _gateway.Transaction.Sale(transRequest);
 
+            //Log the transaction status from braintree...this will let the back end user know if they should prepare the order or not
+            order.TransactionStatus = result.Message;
+
+            Orders.Save(_testDBcontext, order);
 
             return returnString;
         }

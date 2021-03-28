@@ -59,7 +59,6 @@ export class BraintreeControl extends Component {
 
                         request.Nonce = e.nonce;
 
-
                         //Total up everything inside the basket...
                         let array = JSON.parse(window.localStorage.getItem("Basket"));
                         request.items = [];
@@ -90,13 +89,11 @@ export class BraintreeControl extends Component {
                             });
                     },
                     onError: function (type, message) {
-                        //alert(type + " " + message);
+                        console.log(type + "" + message);
                     }
                 });
             })
             .catch(error => {
-                this.setState({ password: "", failed: true });
-                //alert("Login failed");
                 console.log(error);
             });
     }
@@ -158,8 +155,8 @@ export class BraintreeControl extends Component {
                         </div>
                     </div>
                 </div>
-                <div>
-                    This is linked to the braintree platform. Use 4111 1111 1111 1111 and an expiry date in the future to test a valid transaction
+                <div class="defaultPadding">
+                    <strong>This is linked to the braintree platform. Use 4111 1111 1111 1111 and an expiry date in the future to test a valid transaction</strong>
                 </div>
                 <form id="checkout" method="post">
                     <div id="payment-form"></div>

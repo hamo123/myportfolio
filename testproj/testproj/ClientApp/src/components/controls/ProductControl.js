@@ -66,13 +66,13 @@ export class ProductControl extends Component {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
-                            Title
+                            <strong>Title</strong>
                         </div>
                         <div class="col-sm-3">
-                            Description
+                            <strong>Description</strong>
                         </div>
                         <div class="col-sm-3">
-                            Cost
+                            <strong>Cost</strong>
                         </div>
                         <div class="col-sm-3">
  

@@ -14,6 +14,10 @@ namespace testprojapiDAL.Entities
         public string Name { get; set; }
         public string TelephoneNumber { get; set; }
         public decimal OrderTotal { get; set; }
+        public string OrderRef { get; set; }
+        public string Email { get; set; }
+        public string TransactionStatus { get; set; }
+
 
         public List<OrderItem> OrderItems { get; set; }
     }

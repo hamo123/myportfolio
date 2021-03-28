@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testprojapiDAL.Context;
 
 namespace testprojapiDAL.Migrations
 {
     [DbContext(typeof(TestProjContext))]
-    partial class TestProjContextModelSnapshot : ModelSnapshot
+    [Migration("20210328183254_Add_EmailOrderRefTransactionStatusColumnsToOrder")]
+    partial class Add_EmailOrderRefTransactionStatusColumnsToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
