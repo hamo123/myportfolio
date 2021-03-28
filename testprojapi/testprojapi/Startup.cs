@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using testprojapiDAL.Context;
+using testprojapiDAL;
 
 namespace testprojui
 {
@@ -34,6 +35,8 @@ namespace testprojui
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TestProjContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddRepository();
 
             services.AddCors(o => o.AddPolicy("MyCORSPolicy", builder =>
             {

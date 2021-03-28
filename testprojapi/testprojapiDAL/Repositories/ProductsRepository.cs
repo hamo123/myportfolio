@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 using testprojapiDAL.Context;
 using testprojapiDAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using testprojapiDAL.Interfaces;
 
 namespace testprojapiDAL
 {
-    public static class Products
+    public class ProductsRepository : GenericRepository<Product>, IProductsRepository
     {
-        public static List<Product> GetAllProducts(TestProjContext context)
-        {
-            List<Product> products = context.Products.ToList();
-            return products;
-        }
+        public ProductsRepository(TestProjContext context) : base(context)
+        { }
 
         //SP example
         public static Product GetProduct(int ID, TestProjContext context)
@@ -24,12 +22,6 @@ namespace testprojapiDAL
             SqlParameter param1 = new SqlParameter("@Product", ID);
             Product product = context.Products.FromSqlRaw("GetProduct @Product", param1).FirstOrDefault();
             return product;
-        }
-
-        public static void Save(TestProjContext context, Product product)
-        {
-            context.Products.Add(product);
-            context.SaveChanges();
         }
     }
 }

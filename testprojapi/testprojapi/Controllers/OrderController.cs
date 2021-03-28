@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using testprojapiDAL;
 using testprojapiDAL.Context;
 using testprojapiDAL.Entities;
+using testprojapiDAL.Interfaces;
 
 namespace testprojapi.Controllers
 {
@@ -18,10 +19,12 @@ namespace testprojapi.Controllers
     {
         private BraintreeGateway _gateway { get; set; }
         private TestProjContext _testDBcontext;
-        
-        public OrderController(TestProjContext testProjContext)
+        private IUnitOfWork _unitOfWork;
+
+        public OrderController(TestProjContext testProjContext, IUnitOfWork unitOfWork)
         {
             _testDBcontext = testProjContext;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -47,7 +50,7 @@ namespace testprojapi.Controllers
 
         [HttpPost]
         [Route("ProcessOrder")]
-        public string ProcessOrder(ProcessPaymentRequest request)
+        public async Task<string> ProcessOrder(ProcessPaymentRequest request)
         {
             string returnString = String.Empty;
             //Don't make these keys public...even on a sandbox
@@ -113,7 +116,8 @@ namespace testprojapi.Controllers
             //Log the transaction status from braintree...this will let the back end user know if they should prepare the order or not
             order.TransactionStatus = result.Message;
 
-            Orders.Save(_testDBcontext, order);
+            await _unitOfWork.Orders.Add(order);
+            _unitOfWork.Complete();
 
             return returnString;
         }

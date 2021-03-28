@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using testprojapiDAL.Entities;
+
+namespace testprojapiDAL.Interfaces
+{
+    public interface IOrderRepository : IGenericRepositoryInterface<Order>
+    {
+    }
+}
