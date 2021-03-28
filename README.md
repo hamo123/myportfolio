@@ -25,6 +25,8 @@ I've implemented a RequestResponse pattern which I like to use for sending and r
 Finally, I would of liked to include some automated unit tests, but they weren’t asked for in the specification and time constraints stopped me from progressing further. 
 I’m not a TDD developer and I write my tests at the end. 
 
+For microservices, I've only split the project up into 3 layers. A UI, API & Data layer. However, it wouldn't take much to split the ProductController & OrdersController into their own projects to facilitate microservices. 
+
 Final Comments
 
 I hope you enjoy looking through this project as much as I did creating it. Thank you for taking the time to look at this. 
