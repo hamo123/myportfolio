@@ -5,6 +5,12 @@ Overview
 This project contains two projects, testproj & testprojAPI. testproj contains the UI which uses REACT & testProjAPI contains the API which uses ASP.NET 5.0. To run the project both 
 projects must be running at the same time. 
 
+Prerequisites
+
+You'll need .NET 5.0 installed to run the project. (https://dotnet.microsoft.com/download/dotnet/5.0). 
+
+If you are missing any of the NPM packages for the UI, open up a command prompt, point it to "ClientApp" and run npm install and then re-build the project. 
+
 Setup
 
 To run the project get the latest from GitHub and update / create your database via powershell. If you want to add some data, run datasetup.sql under testprojapiDAL -> SQL. There 
