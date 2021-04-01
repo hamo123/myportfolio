@@ -11,6 +11,12 @@ You'll need .NET 5.0 installed to run the project. (https://dotnet.microsoft.com
 
 If you are missing any of the NPM packages for the UI, open up a command prompt, point it to "ClientApp" and run npm install and then re-build the project. 
 
+You'll also need a Braintree sandbox account to process the credentials. Setup an account here :
+
+https://sandbox.braintreegateway.com/login
+
+On the home page when you login you will be presented with your MerchantId, PublicKey & PrivateKey. Input these into testprojapi -> OrderController in the relevant sections. (line 37 & 59). Alternatively, email me and I will send you my sandbox credentials. 
+
 Setup
 
 To run the project get the latest from GitHub and update / create your database via powershell. If you want to add some data, run datasetup.sql under testprojapiDAL -> SQL. There 
