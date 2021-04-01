@@ -34,12 +34,13 @@ namespace testprojapi.Controllers
             //Don't make these keys public...even on a sandbox
             if (_gateway == null)
             {
+                //todo: put in appsettings, maybe even look at dependency injection to reduce duplication.
                 _gateway = new BraintreeGateway
                 {
                     Environment = Braintree.Environment.SANDBOX,
-                    MerchantId = "hfqcjm9qttjdgg3z",
-                    PublicKey = "dhc3w9xdkqqpkd7w",
-                    PrivateKey = "6c7b6d1116e0ecd3b0a333b7684bb1df"
+                    MerchantId = "xxx",
+                    PublicKey = "xxx",
+                    PrivateKey = "xxx"
                 };
             }
 
@@ -56,12 +57,13 @@ namespace testprojapi.Controllers
             //Don't make these keys public...even on a sandbox
             if (_gateway == null)
             {
+                //todo: put in appsettings, maybe even look at dependency injection to reduce duplication.
                 _gateway = new BraintreeGateway
                 {
                     Environment = Braintree.Environment.SANDBOX,
-                    MerchantId = "hfqcjm9qttjdgg3z",
-                    PublicKey = "dhc3w9xdkqqpkd7w",
-                    PrivateKey = "6c7b6d1116e0ecd3b0a333b7684bb1df"
+                    MerchantId = "xxx",
+                    PublicKey = "xxx",
+                    PrivateKey = "xxx"
                 };
             }
 
