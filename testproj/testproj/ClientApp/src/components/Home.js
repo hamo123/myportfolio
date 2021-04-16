@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BraintreeControl } from './controls/BraintreeControl'
-import { BasketControl } from './controls/BasketControl'
-import { ProductControl } from './controls/ProductControl'
+import BraintreeControl from './controls/BraintreeControl'
+import BasketControl from './controls/BasketControl'
+import ProductControl from './controls/ProductControl'
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -26,13 +26,13 @@ export class Home extends Component {
         return (
             <div>
                 <div>
-                    <BasketControl basketItems={this.state.basket}></BasketControl>
+                    <BasketControl></BasketControl>
                 </div>
                 <div>
-                    <ProductControl updateBasketcallback={p => this.updateBasket(p)}></ProductControl>
+                    <ProductControl></ProductControl>
                 </div>
                 <div>
-                    <BraintreeControl basketItems={this.state.basket}></BraintreeControl>
+                    <BraintreeControl></BraintreeControl>
                 </div>
           </div>
         );

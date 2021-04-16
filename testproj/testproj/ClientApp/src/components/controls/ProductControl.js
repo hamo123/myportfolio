@@ -1,8 +1,9 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 import configData from "../../localconfig.json";
+import { connect } from 'react-redux'
 
-export class ProductControl extends Component {
+class ProductControl extends Component {
     static displayName = ProductControl.name;
 
     constructor(props) {
@@ -27,7 +28,10 @@ export class ProductControl extends Component {
     }
 
     addToBasketClick = (e) => {
-        this.props.updateBasketcallback(e);
+        this.props.dispatch({
+            type: 'ADD_BASKET_ITEM',
+            payload: e
+        })
     }
 
     renderProducts(products) {
@@ -57,8 +61,6 @@ export class ProductControl extends Component {
             ? <p><em>Loading...</em></p>
             : this.renderProducts(this.state.products);
 
-        let basket = this.state.loading
-
         return (
             <div class="defaultPadding">
                 <div> <h2>My Products!</h2> </div>
@@ -85,4 +87,14 @@ export class ProductControl extends Component {
     }
 }
 
-export default ProductControl;
+const mapStateToProps = state => {
+    return { basket: state.basket }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductControl)

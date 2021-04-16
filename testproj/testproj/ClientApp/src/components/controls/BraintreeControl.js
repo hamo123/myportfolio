@@ -1,8 +1,9 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 import configData from "../../localconfig.json";
+import { connect } from 'react-redux'
 
-export class BraintreeControl extends Component {
+class BraintreeControl extends Component {
     static displayName = BraintreeControl.name;
 
     constructor(props) {
@@ -172,4 +173,8 @@ export class BraintreeControl extends Component {
     }
 }
 
-export default BraintreeControl;
+const mapStateToProps = state => {
+    return { basket: state.basket }
+}
+
+export default connect(mapStateToProps)(BraintreeControl)

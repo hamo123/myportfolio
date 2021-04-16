@@ -38,9 +38,9 @@ namespace testprojapi.Controllers
                 _gateway = new BraintreeGateway
                 {
                     Environment = Braintree.Environment.SANDBOX,
-                    MerchantId = "xxx",
-                    PublicKey = "xxx",
-                    PrivateKey = "xxx"
+                    MerchantId = "hfqcjm9qttjdgg3z",
+                    PublicKey = "dhc3w9xdkqqpkd7w",
+                    PrivateKey = "6c7b6d1116e0ecd3b0a333b7684bb1df"
                 };
             }
 
@@ -61,9 +61,9 @@ namespace testprojapi.Controllers
                 _gateway = new BraintreeGateway
                 {
                     Environment = Braintree.Environment.SANDBOX,
-                    MerchantId = "xxx",
-                    PublicKey = "xxx",
-                    PrivateKey = "xxx"
+                    MerchantId = "hfqcjm9qttjdgg3z",
+                    PublicKey = "dhc3w9xdkqqpkd7w",
+                    PrivateKey = "6c7b6d1116e0ecd3b0a333b7684bb1df"
                 };
             }
 

@@ -1,15 +1,13 @@
 ﻿import React, { Component } from 'react';
-import axios from 'axios';
-import configData from "../../localconfig.json";
+import { connect } from 'react-redux'
 
-export class BasketControl extends Component {
+class BasketControl extends Component {
     static displayName = BasketControl.name;
 
     constructor(props) {
         super(props);
 
         this.state = {
-            basket: [],
         };
     }
 
@@ -17,38 +15,14 @@ export class BasketControl extends Component {
 
     }
 
-    renderBasket(products) {
-        window.localStorage.setItem("Basket", JSON.stringify(products));
-
-        return (
-            products.map(productItemTest => (
-                <div class="row" key={productItemTest.productItem.ID}>
-                    <div class="col-sm-3">
-                        {productItemTest.productItem.Title}
-                    </div>
-                    <div class="col-sm-3">
-                        {productItemTest.productItem.Description}
-                    </div>
-                    <div class="col-sm-3">
-                        {productItemTest.productItem.Cost}
-                    </div>
-                    <div class="col-sm-3">
-                        {productItemTest.productItem.Cost}
-                    </div>
-                </div>
-
-            ))
-        );
-    }
-
     render() {
         let contentsBasket = this.state.loading
             ? <p><em>Loading...</em></p>
-            : this.renderBasket(this.props.basketItems);
+            : this.renderBasket(this.props.basket);
 
         var display = 'No items in your basket';
 
-        if (this.props.basketItems.length != 0) {
+        if (this.props.basket.length != 0) {
             display = <div>
                         <div>
                             <div>
@@ -82,6 +56,34 @@ export class BasketControl extends Component {
             display
         );
     }
+
+    renderBasket(products) {
+        window.localStorage.setItem("Basket", JSON.stringify(products));
+
+        return (
+            products.map(productItemTest => (
+                <div class="row" key={productItemTest.productItem.ID}>
+                    <div class="col-sm-3">
+                        {productItemTest.productItem.Title}
+                    </div>
+                    <div class="col-sm-3">
+                        {productItemTest.productItem.Description}
+                    </div>
+                    <div class="col-sm-3">
+                        {productItemTest.productItem.Cost}
+                    </div>
+                    <div class="col-sm-3">
+                        {productItemTest.productItem.Cost}
+                    </div>
+                </div>
+
+            ))
+        );
+    }
 }
 
-export default BasketControl;
+const mapStateToProps = state => {
+    return { basket: state.basket }
+}
+
+export default connect(mapStateToProps)(BasketControl)
